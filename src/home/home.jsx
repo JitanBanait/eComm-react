@@ -1,29 +1,21 @@
 import { useEffect, useState } from "react";
 import Nav from "../header/navbar";
 import Product from "../api/product";
-import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import config from "../core/config/config";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import ProductCard from "../component/card/index";
+import ProductCard from "../component/ProductCard/ProductCard";
 import { useNavigate } from "react-router-dom";
+
 const Home = () => {
   const [show, setShow] = useState(false);
 
   const [prData, setProduct] = useState(null);
-//   useEffect(async function () {
-//     let data = { limit: 5, skip: 0 };
-   
-//     const prResult = await Product(data);
-//     // console.log(prResult,"result")
-//     setProduct(prResult);
-//   }, []);
 
   useEffect(() => {
-   
     fetchData();
-  }, []); 
+  }, []);
 
   function handleClose(key) {
     setShow(false);
@@ -38,12 +30,7 @@ const Home = () => {
     setProduct(prResult);
   }
 
-//   async function getProduct(data) {
-   
-//   }
-
   const isUser = JSON.parse(localStorage.getItem("isUser"));
-//   console.log(prData, "prData");
 
   return (
     <>
@@ -58,44 +45,7 @@ const Home = () => {
             {prData.map((item, index) => {
               return (
                 <>
-                  {/* <div id={`main${item.id}`} key={item._id}>
-                    <Card>
-                      <Card.Img
-                        variant="top"
-                        src={`${config.BaseAPI}/${item.image}`}
-                      />
-                      <Card.Body>
-                        <Card.Title>{item.productName}</Card.Title>
-                        <Card.Text>
-                          <p>Price:{item.productPrice}</p>
-                        </Card.Text>
-                      </Card.Body>
-                      <Card.Footer>
-                        <Button variant="primary" onClick={()=>handleShow(item.id)}>
-                          Description
-                        </Button>
-                        <Button id={`cartBtn_${item.id}`}>Add to cart</Button>
-                      </Card.Footer>
-                    </Card>
-                   
-                    <Modal show={show} onHide={()=>handleClose(item.id)}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>{item.productName}</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>{item.prDescription}</Modal.Body>
-                      <Modal.Footer>
-                        <Button
-                          variant="secondary"
-                          onClick={()=>handleClose(item.id)}
-                        >
-                          Close
-                        </Button>
-                        <Button variant="primary" onClick={()=>handleClose(item.id)}>
-                          Save Changes
-                        </Button>
-                      </Modal.Footer>
-                    </Modal>
-                  </div> */}
+                <ProductCard key={index} item={item} />
                 </>
               );
             })}
